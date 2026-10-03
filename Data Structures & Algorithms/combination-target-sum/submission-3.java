@@ -1,0 +1,58 @@
+class Solution {
+    public List<List<Integer>> combinationSum(int[] nums, int target) {
+        List<List<Integer>>  output = new ArrayList<>();
+        Arrays.sort(nums);
+        // for(int i= 0; i<nums.length; i++){
+            
+        // }   
+        dfs(nums, 0, 0, target, new ArrayList<>(), output);
+        return output;
+    }
+    public void dfs(int[] nums, int index, int cursum, int target, List<Integer> curlist, List<List<Integer>>  output){
+        //System.out.print(curlist);
+        if(cursum == target){
+            output.add(curlist);
+            return;
+        }
+
+        // if(cursum>target || index>=nums.length){
+        //     return;
+        // }
+        
+
+        // int cur = nums[index];
+        // int count = (target-cursum)/cur;
+        // while(count>0){
+        //     int totalsum =cursum;
+        //     List<Integer> tempList = new ArrayList<>();
+        //     tempList.addAll(curlist);
+        //     for(int i =0; i<count; i++){
+        //         tempList.add(cur);
+        //         totalsum+=cur;
+        //     }
+        //     if(totalsum==target){
+        //         output.add(tempList);
+        //     }else if(index ==nums.length-1){
+        //         return;
+        //     } else{
+        //         for (int i= index+1; i<nums.length; i++){
+        //             if(totalsum+nums[i]<=target){
+        //                 dfs(nums, i, totalsum, target, tempList, output);
+        //             }
+        //         }
+        //     }
+        //     count--;
+        // }
+        // return ;
+
+        for(int i =index; i<nums.length; i++){
+            if(cursum+nums[i]>target){
+                return;
+            }
+            List<Integer> tempList = new ArrayList<>();
+            tempList.addAll(curlist);
+            tempList.add(nums[i]);
+            dfs(nums, i, cursum+nums[i],target, tempList, output);
+        }
+    }
+}
